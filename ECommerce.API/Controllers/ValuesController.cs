@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +16,9 @@ namespace ECommerce.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            
+            return new string[] { path };
         }
 
         // GET api/values/5
