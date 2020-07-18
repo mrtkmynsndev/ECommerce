@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using ECommerce.API.Engine;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +33,12 @@ namespace ECommerce.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddLogging();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            //services.AddScoped<IProductRepository, ProductRepository>();
+            
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddDbContext<ECommerceContext>(option => option.UseSqlite(_configuration.GetConnectionString(nameof(ECommerceContext))));
         }
 
@@ -47,6 +54,8 @@ namespace ECommerce.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
             app.UseMvc();
