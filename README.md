@@ -3,7 +3,7 @@
 - Infrastructure
 - API
 
-# ToDo Implementation
+# Implementations
 - Entity pattern
 - Generic Repository pattern
 - Entity Framework Core with Sqlite
@@ -13,5 +13,5 @@
  - Eager & LazyLoading strategy
 - Specification Pattern for Generic Repository
 - Dto pattern
-- AutoMapper for Dto object
-- Static File Middleware
+- AutoMapper for Dto object - Shapping Data
+- Static File Middleware - Serving Static File from API
