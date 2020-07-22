@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ECommerce.API.Dtos;
 using ECommerce.API.Errors;
+using ECommerce.API.Helpers;
 using ECommerce.Core.Entities;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Specifications;
@@ -34,14 +35,23 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts(
+            [FromQuery] ProductSpecParam productSpecParam)
         {
 
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(productSpecParam);
+
+            var countSpec = new ProductWithFilterCountSpecification(productSpecParam);
 
             var products = await _productRepository.ListAsync(spec);
 
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products));
+            var totalItems = await _productRepository.CountAsync(countSpec);
+
+            var mapData = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products);
+
+            return OkWithPagination(productSpecParam.PageIndex, productSpecParam.PageSize, totalItems, mapData);
+
+            //return Ok(new Pagination<ProductDto>(productSpecParam.PageIndex, productSpecParam.PageSize, totalItems, mapData));
         }
 
         [HttpGet("{id}")]

@@ -40,7 +40,13 @@ namespace ECommerce.Infrastructure.Data
             return await AppySpecification(spec).ToListAsync();
         }
 
-        private IQueryable<T> AppySpecification(ISpecification<T> spec){
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await AppySpecification(spec).CountAsync();
+        }
+
+        private IQueryable<T> AppySpecification(ISpecification<T> spec)
+        {
             return SpecificationEvaluator<T>.GetQuery(Table.AsQueryable(), spec);
         }
     }

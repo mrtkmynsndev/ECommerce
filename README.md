@@ -20,3 +20,4 @@
     - Exception Middleware
     - ApiBehaviorOptions configured
 - Swagger Documentation
+- API Paging & Filtering & Sorting & Searching
