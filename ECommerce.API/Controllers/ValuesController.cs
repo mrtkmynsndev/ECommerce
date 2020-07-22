@@ -8,9 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ValuesController : ControllerBase
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class ValuesController : BaseApiController
     {
         // GET api/values
         [HttpGet]

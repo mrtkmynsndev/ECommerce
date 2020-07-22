@@ -3,18 +3,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ECommerce.API.Dtos;
+using ECommerce.API.Errors;
 using ECommerce.Core.Entities;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Specifications;
 using ECommerce.Infrastructure.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepository;
         private readonly IGenericRepository<ProductBrand> _productBrandRepository;
@@ -45,6 +45,8 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
@@ -54,8 +56,8 @@ namespace ECommerce.API.Controllers
             var product = await _productRepository.GetEntityWithSpecAsync(spec);
 
             if (product == default(Product))
-                return BadRequest("The Product can not be find");
-            
+                return NotFound(new ApiResponse(404));
+
 
             return Ok(_mapper.Map<Product, ProductDto>(product));
         }

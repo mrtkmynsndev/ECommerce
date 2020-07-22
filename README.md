@@ -15,3 +15,8 @@
 - Dto pattern
 - AutoMapper for Dto object - Shapping Data
 - Static File Middleware - Serving Static File from API
+- API Error Handling
+    - Api Response Model for Representing
+    - Exception Middleware
+    - ApiBehaviorOptions configured
+- Swagger Documentation
