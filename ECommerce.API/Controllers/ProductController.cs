@@ -61,8 +61,6 @@ namespace ECommerce.API.Controllers
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
 
-            //var product = await _productRepository.GetByIdAsync(id);
-
             var product = await _productRepository.GetEntityWithSpecAsync(spec);
 
             if (product == default(Product))
