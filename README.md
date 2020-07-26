@@ -25,3 +25,6 @@
     - Core Module
     - Shared Module
     - Feature Module
+
+  Outputs:
+  ![Image of ECommerce](dashboard/src/assets/images/output-first.PNG)
