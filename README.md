@@ -22,3 +22,6 @@
 - Swagger Documentation
 - API Paging & Filtering & Sorting & Searching
 - Angular Dashboard
+    - Core Module
+    - Shared Module
+    - Feature Module
