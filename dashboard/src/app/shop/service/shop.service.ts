@@ -6,6 +6,7 @@ import { map, delay } from 'rxjs/operators';
 import { IBrand } from '../../shared/models/brand';
 import { IType } from '../../shared/models/product-type';
 import { ShopParam } from '../model/shop-param';
+import { IProduct } from 'src/app/shared/models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,9 @@ export class ShopService {
       );
   }
 
+  public getProduct(id: number): Observable<IProduct> {
+    return this.http.get<IProduct>(this.baseUrl + 'product/' + id);
+  }
   public getBrands() {
     return this.http.get<IBrand[]>(this.baseUrl + 'product/brands');
   }
