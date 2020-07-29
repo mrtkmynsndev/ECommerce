@@ -6,22 +6,28 @@ import { TestErrorComponent } from './components/test-error/test-error.component
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { SectionHeaderComponent } from './components/section-header/section-header.component';
+import { BreadcrumbModule } from 'xng-breadcrumb';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerComponent } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
     NavBarComponent,
     TestErrorComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    SectionHeaderComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    BreadcrumbModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot(
       { positionClass: 'toast-bottom-right', preventDuplicates: true }
     )
   ],
-  exports: [NavBarComponent]
+  exports: [NavBarComponent, SectionHeaderComponent, NgxSpinnerComponent]
 })
 export class CoreModule { }

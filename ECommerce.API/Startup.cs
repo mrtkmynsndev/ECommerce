@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 
 namespace ECommerce.API
 {
@@ -47,6 +48,12 @@ namespace ECommerce.API
             services.AddApplicationServices();
 
             services.AddSwaggerDocumentation();
+
+            services.AddSingleton<ConnectionMultiplexer>(opt =>
+            {
+                var configuration = ConfigurationOptions.Parse(_configuration.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
 
             services.AddCors(opt =>
             {
