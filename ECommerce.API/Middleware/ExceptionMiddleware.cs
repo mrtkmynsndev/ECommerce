@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ECommerce.API.Errors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -13,9 +14,9 @@ namespace ECommerce.API.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionMiddleware> _logger;
-        private readonly IHostingEnvironment _environment;
+        private readonly IHostEnvironment _environment;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostingEnvironment environment)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment environment)
         {
             _environment = environment;
             _logger = logger;

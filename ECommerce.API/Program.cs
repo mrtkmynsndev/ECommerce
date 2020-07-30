@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace ECommerce.API
@@ -27,7 +28,7 @@ namespace ECommerce.API
                 try
                 {
                     var context = services.GetRequiredService<ECommerceContext>();
-                    
+
                     await context.Database.MigrateAsync();
 
                     await ECommerceContextSeed.SeedAsync(context, loggerFactory);
@@ -42,8 +43,11 @@ namespace ECommerce.API
             }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateWebHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }

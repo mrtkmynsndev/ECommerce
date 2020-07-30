@@ -21,6 +21,7 @@
     - ApiBehaviorOptions configured
 - Swagger Documentation
 - API Paging & Filtering & Sorting & Searching
+- Redis Cache Implementation
 - Angular Dashboard
     - Core Module
     - Shared Module

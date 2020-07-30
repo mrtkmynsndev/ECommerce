@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -36,10 +37,10 @@ namespace ECommerce.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllers().AddNewtonsoftJson();
+            
             services.AddLogging();
-
 
             services.AddAutoMapper(typeof(MappingProfile));
 
@@ -49,7 +50,7 @@ namespace ECommerce.API
 
             services.AddSwaggerDocumentation();
 
-            services.AddSingleton<ConnectionMultiplexer>(opt =>
+            services.AddSingleton<IConnectionMultiplexer>(opt =>
             {
                 var configuration = ConfigurationOptions.Parse(_configuration.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);
@@ -65,7 +66,7 @@ namespace ECommerce.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             // if (env.IsDevelopment())
             // {
@@ -81,6 +82,8 @@ namespace ECommerce.API
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
+            app.UseRouting();
+
             app.UseStaticFiles();
 
             app.UseSwaggerDocumentation();
@@ -89,7 +92,11 @@ namespace ECommerce.API
 
             app.UseHttpsRedirection();
 
-            app.UseMvc();
+            //app.UseMvc();
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
+            });
         }
     }
 }

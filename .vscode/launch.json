@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/ECommerce.API/bin/Debug/netcoreapp2.2/ECommerce.API.dll",
+            "program": "${workspaceFolder}/ECommerce.API/bin/Debug/netcoreapp3.1/ECommerce.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/ECommerce.API",
             "stopAtEntry": false,
