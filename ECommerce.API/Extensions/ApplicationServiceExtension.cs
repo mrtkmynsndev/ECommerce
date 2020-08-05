@@ -2,6 +2,7 @@ using System.Linq;
 using ECommerce.API.Errors;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure.Data;
+using ECommerce.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ namespace ECommerce.API.Extensions
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<ITokenService, TokenService>();
             
             services.Configure<ApiBehaviorOptions>(options =>
             {

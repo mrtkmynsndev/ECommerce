@@ -1,6 +1,7 @@
 using ECommerce.API.Errors;
 using ECommerce.Core.Entities;
 using ECommerce.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -22,6 +23,12 @@ namespace ECommerce.API.Controllers
                 return NotFound(new ApiResponse(400));
 
             return Ok(product);
+        }
+        
+        [HttpGet("testauth")]
+        [Authorize()]
+        public ActionResult<string> GetSecretText(){
+            return "Default Secret Text";
         }
 
         [HttpGet("notfound/{id}")]

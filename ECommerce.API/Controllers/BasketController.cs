@@ -1,11 +1,13 @@
 using System.Threading.Tasks;
 using ECommerce.Core.Entities;
 using ECommerce.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
+    [Authorize()]
     public class BasketController : BaseApiController
     {
         private readonly IBasketRepository _basketRepository;

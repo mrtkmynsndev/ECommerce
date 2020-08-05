@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Authorize()]
     public class ValuesController : BaseApiController
     {
         // GET api/values

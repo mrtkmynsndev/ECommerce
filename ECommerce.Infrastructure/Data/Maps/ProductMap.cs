@@ -8,7 +8,7 @@ namespace ECommerce.Infrastructure.Data.Maps
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("Products", "dbo").HasKey(k => k.Id);
+            builder.ToTable("Products").HasKey(k => k.Id);
 
             builder.Property(p => p.Name).HasColumnName("Name").HasMaxLength(100);
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(true).HasMaxLength(180);

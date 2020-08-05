@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using ECommerce.API.Engine;
-using ECommerce.API.Errors;
 using ECommerce.API.Extensions;
 using ECommerce.API.Middleware;
-using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure.Data;
+using ECommerce.Infrastructure.Identity;
+using EECommerce.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 
 namespace ECommerce.API
@@ -37,18 +27,34 @@ namespace ECommerce.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddControllers().AddNewtonsoftJson();
-            
+            services.AddControllers().AddNewtonsoftJson(options => {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+            //services.AddHttpContextAccessor();
+
             services.AddLogging();
 
             services.AddAutoMapper(typeof(MappingProfile));
 
+            services.Configure<JwtSettings>(_configuration.GetSection("Jwt"));
+
             services.AddDbContext<ECommerceContext>(option => option.UseSqlite(_configuration.GetConnectionString(nameof(ECommerceContext))));
+
+            services.AddDbContext<AppIdentityDbContext>(option =>
+            {
+                option.UseSqlite(_configuration.GetConnectionString(nameof(AppIdentityDbContext)));
+            });
+
+            #region Extension Services
 
             services.AddApplicationServices();
 
+            services.AddIdentityServices(_configuration.GetSection("Jwt").Get<JwtSettings>());
+
             services.AddSwaggerDocumentation();
+
+            #endregion
 
             services.AddSingleton<IConnectionMultiplexer>(opt =>
             {
@@ -86,15 +92,18 @@ namespace ECommerce.API
 
             app.UseStaticFiles();
 
-            app.UseSwaggerDocumentation();
-
             app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.UseSwaggerDocumentation();
 
             app.UseHttpsRedirection();
 
-            //app.UseMvc();
-
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
         }
