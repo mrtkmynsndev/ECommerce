@@ -22,6 +22,10 @@
 - Swagger Documentation
 - API Paging & Filtering & Sorting & Searching
 - Redis Cache Implementation
+- Authentication and Authorization
+    - Identity Implementation
+    - JWT - JSON Web Token Implementation
+    
 - Angular Dashboard
     - Core Module
     - Shared Module
