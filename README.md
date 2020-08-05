@@ -22,6 +22,7 @@
 - Swagger Documentation
 - API Paging & Filtering & Sorting & Searching
 - Redis Cache Implementation
+- Validation with DataAnnotations
 - Authentication and Authorization
     - Identity Implementation
     - JWT - JSON Web Token Implementation

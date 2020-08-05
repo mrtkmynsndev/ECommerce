@@ -54,6 +54,14 @@ namespace ECommerce.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto register)
         {
+            if (CheckUserNameIsExist(register.UserName).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationResponse()
+                {
+                    Errors = new[] { "Username is in use" }
+                });
+            }
+
             var appUser = new AppUser()
             {
                 UserName = register.UserName,
@@ -74,7 +82,7 @@ namespace ECommerce.API.Controllers
         }
 
         [Authorize()]
-        [HttpGet("currentuser")]
+        [HttpGet()]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var user = await _userManager.FindByUserNameFromClaimsPrinciple(HttpContext.User);

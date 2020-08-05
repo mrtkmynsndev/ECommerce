@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using AutoMapper;
+using ECommerce.API.Dtos;
 using ECommerce.Core.Entities;
 using ECommerce.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,9 +13,11 @@ namespace ECommerce.API.Controllers
     public class BasketController : BaseApiController
     {
         private readonly IBasketRepository _basketRepository;
+        private readonly IMapper _mapper;
 
-        public BasketController(IBasketRepository basketRepository)
+        public BasketController(IBasketRepository basketRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _basketRepository = basketRepository;
 
         }
@@ -29,9 +33,9 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBasketAsync(CustomerBasket basket)
+        public async Task<IActionResult> UpdateBasketAsync(CustomerBasketDto basketDto)
         {
-            var updatedBasket = await _basketRepository.UpdateAsync(basket);
+            var updatedBasket = await _basketRepository.UpdateAsync(_mapper.Map<CustomerBasketDto, CustomerBasket>(basketDto));
 
             return Ok(updatedBasket);
         }
