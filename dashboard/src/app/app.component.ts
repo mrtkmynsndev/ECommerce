@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from './basket/services/basket.service';
 import { environment } from 'src/environments/environment';
+import { AccountService } from './account/services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,16 @@ export class AppComponent implements OnInit {
   title = 'Dashboard Pannel';
 
   constructor(
-    private basketService: BasketService
+    private basketService: BasketService,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
+    this.initBasket();
+    this.initCurrentUser();
+  }
+
+  initBasket(): void {
     const basketId = localStorage.getItem(environment.basketKey);
     if (basketId) {
       this.basketService.getBasket(basketId).subscribe(() => {
@@ -24,6 +31,16 @@ export class AppComponent implements OnInit {
           console.log(error);
         });
     }
+  }
+
+  initCurrentUser(): void {
+    const tokenValue = localStorage.getItem(environment.tokenKey);
+    this.accountService.loadCurrentUser(tokenValue).subscribe(result => {
+      console.log('current user initialized');
+    },
+      error => {
+        console.log(error);
+      });
   }
 }
 

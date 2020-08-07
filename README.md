@@ -5,8 +5,8 @@
 
 # Implementations
 - Entity pattern
-- Generic Repository pattern
-- Entity Framework Core with Sqlite
+- Basic Generic Repository Pattern
+- Entity Framework Core
     - Fluent Mapping
     - Sql Lite
     - Automatic Seed
@@ -19,11 +19,11 @@
     - Api Response Model for Representing
     - Exception Middleware
     - ApiBehaviorOptions configured
-- Swagger Documentation
+- Swagger Documentation Implementation
 - API Paging & Filtering & Sorting & Searching
 - Redis Cache Implementation
 - Validation with DataAnnotations
-- Authentication and Authorization
+- Authentication and Authorization Middleware
     - Identity Implementation
     - JWT - JSON Web Token Implementation
     
@@ -31,6 +31,12 @@
     - Core Module
     - Shared Module
     - Feature Module
+    - Guard
+    - Interceptors
 
   Outputs:
-  ![Image of ECommerce](dashboard/src/assets/images/output-first.PNG)
+  ![Home Page of ECommerce](outputs/home.PNG)
+  ![Shop Page of ECommerce](outputs/shop.PNG)
+  ![Login Page of ECommerce](outputs/login.PNG)
+  ![Register Page of ECommerce](outputs/register.PNG)
+  ![Basket Page of ECommerce](outputs/basket.PNG)

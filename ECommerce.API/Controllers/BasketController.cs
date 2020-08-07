@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
-    [Authorize()]
+    //[Authorize()]
     public class BasketController : BaseApiController
     {
         private readonly IBasketRepository _basketRepository;

@@ -101,6 +101,12 @@ namespace ECommerce.API.Controllers
             return await _userManager.FindByNameAsync(userName) != default(AppUser);
         }
 
+        [HttpGet("emailexist")]
+        public async Task<ActionResult<bool>> CheckEmailIsExistAsync([FromQuery] string email)
+        {
+            return await _userManager.FindByEmailAsync(email) != default(AppUser);
+        }
+
         [Authorize()]
         [HttpGet("adress")]
         public async Task<ActionResult<AdressDto>> GetUserAdress()

@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-center mt-5">
+    <div class="col-3">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-3 font-weight-normal">Loading</h1>
+            </div>
+
+            <app-text-input formControlName="userName" [label]="'UserName'"></app-text-input>
+            <app-text-input formControlName="password" [type]="'password'" [label]="'Password'"></app-text-input>
+
+            <button [disabled]="formGroup.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+    <div class="col-4" style="display: none;">
+        <p>Form Status: {{formGroup.status}}</p>
+        <p>UserName Status {{formGroup.get('userName').status}}</p>
+        <p>Email touched {{formGroup.get('userName').touched}}</p>
+        <p>UserName dirty {{formGroup.get('userName').dirty}}</p>
+        <pre>{{formGroup.value | json}}</pre>
+    </div>
+</div>

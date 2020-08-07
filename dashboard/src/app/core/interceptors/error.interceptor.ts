@@ -19,11 +19,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                     if (error.error.errors) {
                         throw error.error;
                     } else {
-                        this.toast.error(error.error.message, error.error.status);
+                        this.toast.error(error.error.message, error.error.statusCode);
                     }
                 }
                 if (error.status === 401) {
-                    this.toast.error(error.error.message, error.error.status);
+                    this.toast.error(error.error.message, error.error.statusCode);
                 }
                 if (error.status === 404) {
                     this.router.navigateByUrl('/not-found');
