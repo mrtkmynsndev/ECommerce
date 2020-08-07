@@ -35,8 +35,8 @@
     - Interceptors
 
   Outputs:
-  ![Home Page of ECommerce](outputs/home.PNG)
-  ![Shop Page of ECommerce](outputs/shop.PNG)
-  ![Login Page of ECommerce](outputs/login.PNG)
-  ![Register Page of ECommerce](outputs/register.PNG)
-  ![Basket Page of ECommerce](outputs/basket.PNG)
+  ![Home Page of ECommerce](outputs/Home.png)
+  ![Shop Page of ECommerce](outputs/Shop.png)
+  ![Login Page of ECommerce](outputs/Login.png)
+  ![Register Page of ECommerce](outputs/Register.png)
+  ![Basket Page of ECommerce](outputs/Basket.png)
