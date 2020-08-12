@@ -6,6 +6,7 @@
 # Implementations
 - Entity pattern
 - Basic Generic Repository Pattern
+- Unit Of Work Pattern for Generic Repository
 - Entity Framework Core
     - Fluent Mapping
     - Sql Lite
