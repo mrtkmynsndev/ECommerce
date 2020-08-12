@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ECommerce.Core.Entities;
+using ECommerce.Core.Entities.Orders;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -54,6 +55,21 @@ namespace ECommerce.Infrastructure.Data
                     foreach (var item in products)
                     {
                         context.Products.Add(item);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+
+                if (!context.DeliveryMethods.Any())
+                {
+                    var deliveryMethodData =
+                        File.ReadAllText(@"../ECommerce.Infrastructure/Data/SeedData/delivery.json");
+
+                    var deliveryMethods = JsonConvert.DeserializeObject<List<DeliveryMethod>>(deliveryMethodData);
+
+                    foreach (var item in deliveryMethods)
+                    {
+                        context.DeliveryMethods.Add(item);
                     }
 
                     await context.SaveChangesAsync();

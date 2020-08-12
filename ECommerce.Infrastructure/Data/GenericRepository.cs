@@ -49,5 +49,30 @@ namespace ECommerce.Infrastructure.Data
         {
             return SpecificationEvaluator<T>.GetQuery(Table.AsQueryable(), spec);
         }
+
+        public void Add(T entity)
+        {
+            _context.Set<T>().Add(entity);
+        }
+
+        public void Update(T entity)
+        {
+            _context.Set<T>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void Delete(T entity)
+        {
+            var entityEntry = _context.Entry(entity);
+
+            if (entityEntry.State == EntityState.Detached)
+            {
+                _context.Set<T>().Attach(entity);
+            }
+            else
+            {
+                _context.Set<T>().Remove(entity);
+            }
+        }
     }
 }
