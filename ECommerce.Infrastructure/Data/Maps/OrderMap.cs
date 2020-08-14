@@ -21,6 +21,8 @@ namespace ECommerce.Infrastructure.Data.Maps
                 o => (OrderStatus)Enum.Parse(typeof(OrderStatus), o)
             );
 
+            builder.HasOne(x => x.DeliveryMethod).WithMany().OnDelete(DeleteBehavior.Cascade).IsRequired();
+
             builder.HasMany(x => x.OrderItems).WithOne().OnDelete(DeleteBehavior.Cascade) // Delete all related items
             .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field); 
         }

@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row" *ngIf="order">
+        <div class="col-8">
+            <app-basket-summary [isBasket]="false" [isOrder]="true" [items]="order.orderItems"></app-basket-summary>
+        </div>
+        <div class="col-4">
+            <app-order-totals
+            [total]="order.total"
+            [subtotal]="order.subTotal"
+            [shipping]="order.shippingPrice"
+            ></app-order-totals>
+        </div>
+    </div>
+</div>

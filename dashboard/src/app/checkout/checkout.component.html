@@ -20,7 +20,11 @@
         </app-stepper>
        </div>
        <div class="col-4">
-           <app-order-totals></app-order-totals>
+        <app-order-totals
+        [total]="(basketTotal$ | async).total"
+        [subtotal]="(basketTotal$ | async).subtotal"
+        [shipping]="(basketTotal$ | async).shipping"
+        ></app-order-totals>
        </div>
    </div>
 </div>
