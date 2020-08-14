@@ -1,6 +1,6 @@
 namespace ECommerce.API.Dtos
 {
-    public class AdressDto
+    public class AddressDto
     {
         public string Name { get; set; }
         public string LastName { get; set; }

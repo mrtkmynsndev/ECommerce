@@ -1,4 +1,4 @@
-export interface Adress {
+export interface IAddress {
     name: string;
     lastName: string;
     street: string;

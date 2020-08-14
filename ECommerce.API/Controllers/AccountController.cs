@@ -108,25 +108,25 @@ namespace ECommerce.API.Controllers
         }
 
         [Authorize()]
-        [HttpGet("adress")]
-        public async Task<ActionResult<AdressDto>> GetUserAdress()
+        [HttpGet("address")]
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
             AppUser appUser = await _userManager.FindUserByCalimsPrincipleWithAdressAsync(HttpContext.User);
 
-            return _mapper.Map<Adress, AdressDto>(appUser.Adress);
+            return _mapper.Map<Adress, AddressDto>(appUser.Adress);
         }
 
-        [HttpPost("updateadress")]
+        [HttpPost("address")]
         [Authorize]
-        public async Task<ActionResult<AdressDto>> UpdateUserAdress(AdressDto adress)
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto adress)
         {
             var user = await _userManager.FindUserByCalimsPrincipleWithAdressAsync(HttpContext.User);
 
-            user.Adress = _mapper.Map<AdressDto, Adress>(adress);
+            user.Adress = _mapper.Map<AddressDto, Adress>(adress);
 
             var result = await _userManager.UpdateAsync(user);
 
-            if (result.Succeeded) return Ok(_mapper.Map<Adress, AdressDto>(user.Adress));
+            if (result.Succeeded) return Ok(_mapper.Map<Adress, AddressDto>(user.Adress));
 
             return Problem(result.Errors.First().Description, string.Empty, 500);
         }

@@ -13,8 +13,9 @@ namespace ECommerce.Core.Specifications
              (!param.TypeId.HasValue || x.ProductTypeId == param.TypeId)
         )
         {
-            // AddInclude(x => x.ProductType);
-            // AddInclude(x => x.ProductBrand);
+            AddInclude(x => x.ProductType);
+            
+            AddInclude(x => x.ProductBrand);
 
             AddOrderBy(x => x.Name);
 

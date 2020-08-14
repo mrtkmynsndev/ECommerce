@@ -29,7 +29,7 @@ namespace ECommerce.API.Controllers
         {
             var userName = HttpContext.User.GetUserName();
 
-            var shipToAdress = _mapper.Map<AdressDto, Adress>(order.ShippToAdress);
+            var shipToAdress = _mapper.Map<AddressDto, Adress>(order.ShippToAdress);
 
             var createdOrder = await _orderService.CreateOrderAsync(userName, order.DeliveryMethodId, order.BasketId, shipToAdress);
 

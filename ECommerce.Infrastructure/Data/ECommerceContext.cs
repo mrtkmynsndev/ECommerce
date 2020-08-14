@@ -24,9 +24,5 @@ namespace ECommerce.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new OrderItemMap());
             modelBuilder.ApplyConfiguration(new DeliveryMethodMap());
         }
-
-        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
-        //     optionsBuilder.UseLazyLoadingProxies();
-        // }
     }
 }

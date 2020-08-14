@@ -17,11 +17,11 @@ namespace ECommerce.API.Engine
                 .ForMember(m => m.ProductType, o => o.MapFrom(p => p.ProductType.Name))
                 .ForMember(m => m.PictureUrl, o => o.MapFrom<ProductUrlResolver>());
 
-            CreateMap<ECommerce.Core.Entities.Identity.Adress, AdressDto>().ReverseMap();
+            CreateMap<ECommerce.Core.Entities.Identity.Adress, AddressDto>().ReverseMap();
 
             CreateMap<CustomerBasketDto, CustomerBasket>();
             CreateMap<BasketItemDto, BasketItem>();
-            CreateMap<AdressDto, ECommerce.Core.Entities.Orders.Adress>();
+            CreateMap<AddressDto, ECommerce.Core.Entities.Orders.Adress>();
 
             CreateMap<Order, OrderResponseDto>()
                 .ForMember(x => x.DeliveryMethod, o => o.MapFrom(p => p.DeliveryMethod.Name))

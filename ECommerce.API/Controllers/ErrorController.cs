@@ -8,7 +8,7 @@ namespace ECommerce.API.Controllers
     public class ErrorController : BaseApiController
     {
         public IActionResult Error(int code){
-            return Ok(new ApiResponse(code));
+            return new ObjectResult(new ApiResponse(code));
         }
     }
 }

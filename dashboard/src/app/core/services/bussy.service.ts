@@ -11,7 +11,7 @@ export class BussyService {
     private spinnerService: NgxSpinnerService
   ) { }
 
-  busy() {
+  busy(): void {
     this.bussyRequestCounter++;
     this.spinnerService.show(undefined, {
       type: 'pacman',
@@ -20,7 +20,7 @@ export class BussyService {
     });
   }
 
-  idle() {
+  idle(): void {
     this.bussyRequestCounter--;
     if (this.bussyRequestCounter <= 0) {
       this.spinnerService.hide();

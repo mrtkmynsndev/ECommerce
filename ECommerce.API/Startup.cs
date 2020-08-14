@@ -31,7 +31,7 @@ namespace ECommerce.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            //services.AddHttpContextAccessor();
+            services.AddHttpContextAccessor();
 
             services.AddLogging();
 
@@ -100,7 +100,7 @@ namespace ECommerce.API
 
             app.UseSwaggerDocumentation();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {

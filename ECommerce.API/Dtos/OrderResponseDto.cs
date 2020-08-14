@@ -6,6 +6,7 @@ namespace ECommerce.API.Dtos
 {
     public class OrderResponseDto
     {
+        public int Id { get; set; }
         public string BuyerUserName { get; set; }
         public Adress ShipToAdress { get; set; }
         public DateTimeOffset OrderDate { get; set; }
