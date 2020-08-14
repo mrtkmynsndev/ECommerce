@@ -2,17 +2,25 @@
 - Core
 - Infrastructure
 - API
+- Dashboard
+
+# Technologies
+- .Net Core 3.1
+- ASP.NET Core 3.1
+- Entity Framework Core 3.1
+- Angular 9
 
 # Implementations
 - Entity pattern
-- Basic Generic Repository Pattern
-- Unit Of Work Pattern for Generic Repository
+- Repository Pattern
+    - Generic Repository
+    - Unit of Work 
+    - Specification
 - Entity Framework Core
     - Fluent Mapping
     - Sql Lite
     - Automatic Seed
     - Eager & LazyLoading strategy
-- Specification Pattern for Generic Repository
 - Dto pattern
 - AutoMapper for Dto object - Shapping Data
 - Static File Middleware - Serving Static File from API
@@ -21,9 +29,9 @@
     - Exception Middleware
     - ApiBehaviorOptions configured
 - Swagger Documentation Implementation
-- API Paging & Filtering & Sorting & Searching
+- Paging & Filtering & Sorting & Searching
 - Redis Cache Implementation
-- Validation with DataAnnotations
+- Validation with DataAnnotations Attribute
 - Authentication and Authorization Middleware
     - Identity Implementation
     - JWT - JSON Web Token Implementation
@@ -32,7 +40,7 @@
     - Core Module
     - Shared Module
     - Feature Module
-    - Guard
+    - Guards
     - Interceptors
 
   Outputs:
