@@ -12,8 +12,11 @@ namespace ECommerce.Infrastructure.Services
     {
         private readonly IBasketRepository _basketRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public OrderService(IUnitOfWork unitOfWork, IBasketRepository basketRepository)
+        private readonly IPaymentService _paymentService;
+
+        public OrderService(IUnitOfWork unitOfWork, IBasketRepository basketRepository, IPaymentService paymentService)
         {
+            _paymentService = paymentService;
             _unitOfWork = unitOfWork;
             _basketRepository = basketRepository;
         }
@@ -26,9 +29,19 @@ namespace ECommerce.Infrastructure.Services
             // get delivery from delivery repo
             var deliveryMethod = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(deliveryMethodId);
 
+            // check the order is exist
+            OrderByPaymentIntentIdWithSpecification spec = new OrderByPaymentIntentIdWithSpecification(basket.PaymentIntentId);
+            var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpecAsync(spec);
+
+            if (existingOrder != default(Order))
+            {
+                _unitOfWork.Repository<Order>().Delete(existingOrder);
+                _ = await _paymentService.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
+            }
+
             // create order
-            var order = new Order(userName, shippingAdress, deliveryMethod);
-            
+            var order = new Order(userName, shippingAdress, deliveryMethod, basket.PaymentIntentId);
+
             // get product from product repo
             foreach (var basketItem in basket.Items)
             {
@@ -40,14 +53,14 @@ namespace ECommerce.Infrastructure.Services
                 order.AddOrderItem(itemOrdered, productItem.Price, basketItem.Quantity);
             }
 
-            // TODO: save db
             _unitOfWork.Repository<Order>().Add(order);
+
             var result = await _unitOfWork.SaveAsync(new System.Threading.CancellationToken());
 
-            if(result < 0) return null;
+            if (result <= 0) return null;
 
-            await _basketRepository.DeleteBasket(basketId);
-            
+            //await _basketRepository.DeleteBasket(basketId);
+
             // return order
             return order;
         }
@@ -67,8 +80,8 @@ namespace ECommerce.Infrastructure.Services
         public async Task<IReadOnlyList<Order>> GetOrdersByUserNameAsync(string userName)
         {
             OrderWithItemsAndOrederingSpecification spec = new OrderWithItemsAndOrederingSpecification(userName);
-            
-            return await  _unitOfWork.Repository<Order>().ListAsync(spec);
+
+            return await _unitOfWork.Repository<Order>().ListAsync(spec);
         }
     }
 }

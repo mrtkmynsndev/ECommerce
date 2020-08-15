@@ -27,6 +27,7 @@ export class BasketService {
       .pipe(
         map(response => {
           this.basketSource.next(response);
+          this.shipping = response.shippingPrice;
           this.calculateTotals();
           return response;
         })
@@ -45,7 +46,22 @@ export class BasketService {
 
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
     this.shipping = deliveryMethod.price;
+    const basket = this.getBasketValue();
+    basket.deliveryMethodId = deliveryMethod.id;
+    basket.shippingPrice = deliveryMethod.price;
     this.calculateTotals();
+    this.setBasket(basket);
+  }
+
+  createPaymentIntent(): Observable<IBasket> {
+    return this.http.post(this.baseUrl + 'payment/' + this.getBasketValue().id, {}).pipe(
+      map((response: IBasket) => {
+        if (response) {
+          this.basketSource.next(response);
+          return response;
+        }
+      })
+    );
   }
 
   incrementItemQuantity(item: IBasketItem) {

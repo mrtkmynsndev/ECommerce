@@ -12,11 +12,12 @@ namespace ECommerce.Core.Entities.Orders
         }
 
         public Order(string buyerUserName, Adress shipToAdress,
-        DeliveryMethod deliveryMethod)
+        DeliveryMethod deliveryMethod, string paymentIntentId)
         {
             BuyerUserName = buyerUserName;
             ShipToAdress = shipToAdress;
             DeliveryMethod = deliveryMethod;
+            PaymentIntentId = paymentIntentId;
         }
 
         public string BuyerUserName { get; set; }
@@ -40,6 +41,10 @@ namespace ECommerce.Core.Entities.Orders
             this._orderItems.Add(orderedItem);
 
             CalculateSubTotals();
+        }
+
+        public void ChangeStatus(OrderStatus status){
+            this.Status = status;
         }
 
         private void CalculateSubTotals()
