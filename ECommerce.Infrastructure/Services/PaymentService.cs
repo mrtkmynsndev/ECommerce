@@ -17,6 +17,7 @@ namespace ECommerce.Infrastructure.Services
         private readonly IBasketRepository _basketRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
+        
         public PaymentService(IBasketRepository basketRepository, IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             _configuration = configuration;
@@ -33,7 +34,6 @@ namespace ECommerce.Infrastructure.Services
             if (basket == default(CustomerBasket)) return default(CustomerBasket);
 
             var shippingPrice = 0.0m;
-
 
             if (basket.DeliveryMethodId.HasValue)
             {

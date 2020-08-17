@@ -50,6 +50,8 @@ namespace ECommerce.Infrastructure.Services
                 var itemOrdered = new ProductItemOrdered(productItem.Id,
                 productItem.Name, productItem.PictureUrl);
 
+                var x = new[] { 1, 2, 3, 4 };
+
                 order.AddOrderItem(itemOrdered, productItem.Price, basketItem.Quantity);
             }
 
@@ -58,8 +60,6 @@ namespace ECommerce.Infrastructure.Services
             var result = await _unitOfWork.SaveAsync(new System.Threading.CancellationToken());
 
             if (result <= 0) return null;
-
-            //await _basketRepository.DeleteBasket(basketId);
 
             // return order
             return order;

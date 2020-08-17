@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using ECommerce.API.Attributes;
 using ECommerce.API.Dtos;
 using ECommerce.API.Errors;
 using ECommerce.API.Helpers;
@@ -35,6 +36,7 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet]
+        [Cached(600)]
         public async Task<IActionResult> GetProducts(
             [FromQuery] ProductSpecParam productSpecParam)
         {
@@ -57,6 +59,7 @@ namespace ECommerce.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [Cached(600)]
         public async Task<IActionResult> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
@@ -71,10 +74,12 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet("brands")]
+        [Cached(600)]
         public async Task<IActionResult> GetProductBrands()
             => Ok(await _productBrandRepository.ListAllAsync());
 
         [HttpGet("types")]
+        [Cached(600)]
         public async Task<IActionResult> GetProductTypes()
             => Ok(await _productTypeRepository.ListAllAsync());
     }
