@@ -31,6 +31,7 @@
 - Swagger Documentation Implementation
 - Paging & Filtering & Sorting & Searching
 - Redis Cache Implementation
+    - Cache Attribute
 - Validation with DataAnnotations Attribute
 - Authentication and Authorization Middleware
     - Identity Implementation
