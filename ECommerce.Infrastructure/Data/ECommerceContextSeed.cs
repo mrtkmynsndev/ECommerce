@@ -21,7 +21,7 @@ namespace ECommerce.Infrastructure.Data
                 if (!context.ProductBrands.Any())
                 {
 
-                    var brandsData = File.ReadAllText(@"../ECommerce.Infrastructure/Data/SeedData/brands.json");
+                    var brandsData = File.ReadAllText(path + @"/Data/SeedData/brands.json");
 
                     var brands = JsonConvert.DeserializeObject<List<ProductBrand>>(brandsData);
 
@@ -33,7 +33,7 @@ namespace ECommerce.Infrastructure.Data
                 if (!context.ProductTypes.Any())
                 {
                     var typesData =
-                        File.ReadAllText(@"../ECommerce.Infrastructure/Data/SeedData/types.json");
+                        File.ReadAllText(path + @"/Data/SeedData/types.json");
 
                     var types = JsonConvert.DeserializeObject<List<ProductType>>(typesData);
 
@@ -48,7 +48,7 @@ namespace ECommerce.Infrastructure.Data
                 if (!context.Products.Any())
                 {
                     var productsData =
-                        File.ReadAllText(@"../ECommerce.Infrastructure/Data/SeedData/products.json");
+                        File.ReadAllText(path + @"/Data/SeedData/products.json");
 
                     var products = JsonConvert.DeserializeObject<List<Product>>(productsData);
 
@@ -63,7 +63,7 @@ namespace ECommerce.Infrastructure.Data
                 if (!context.DeliveryMethods.Any())
                 {
                     var deliveryMethodData =
-                        File.ReadAllText(@"../ECommerce.Infrastructure/Data/SeedData/delivery.json");
+                        File.ReadAllText(path + @"/Data/SeedData/delivery.json");
 
                     var deliveryMethods = JsonConvert.DeserializeObject<List<DeliveryMethod>>(deliveryMethodData);
 

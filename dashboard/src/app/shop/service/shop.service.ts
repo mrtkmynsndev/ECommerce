@@ -7,12 +7,13 @@ import { IBrand } from '../../shared/models/brand';
 import { IType } from '../../shared/models/product-type';
 import { ShopParam } from '../model/shop-param';
 import { IProduct } from 'src/app/shared/models/product';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  private baseUrl = 'https://localhost:5001/api/';
+  private baseUrl = environment.apiUrl;
   private productsCached: IProduct[] = [];
   private brandsCached: IBrand[] = [];
   private typesCached: IType[] = [];

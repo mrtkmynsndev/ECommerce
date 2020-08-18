@@ -14,22 +14,23 @@ namespace ECommerce.Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6");
+                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("ECommerce.Core.Entities.Orders.DeliveryMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("DeliveryTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
@@ -43,26 +44,26 @@ namespace ECommerce.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("BuyerUserName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("DeliveryMethodId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("DeliveryMethodId")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("OrderDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("PaymentIntentId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<decimal>("SubTotal")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -75,16 +76,16 @@ namespace ECommerce.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("OrderId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -97,33 +98,32 @@ namespace ECommerce.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnName("Description")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(180);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
                         .HasColumnName("Name")
-                        .HasColumnType("TEXT")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
                         .HasMaxLength(100);
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()
                         .HasColumnName("PictureUrl")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<decimal>("Price")
                         .HasColumnName("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductBrandId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductTypeId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -138,10 +138,10 @@ namespace ECommerce.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -152,10 +152,10 @@ namespace ECommerce.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -166,30 +166,32 @@ namespace ECommerce.Infrastructure.Data.Migrations
                 {
                     b.HasOne("ECommerce.Core.Entities.Orders.DeliveryMethod", "DeliveryMethod")
                         .WithMany()
-                        .HasForeignKey("DeliveryMethodId");
+                        .HasForeignKey("DeliveryMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("ECommerce.Core.Entities.Orders.Adress", "ShipToAdress", b1 =>
                         {
                             b1.Property<int>("OrderId")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("int");
 
                             b1.Property<string>("City")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.Property<string>("LastName")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.Property<string>("Name")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.Property<string>("State")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.Property<string>("Street")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.Property<string>("Zip")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.HasKey("OrderId");
 
@@ -210,16 +212,16 @@ namespace ECommerce.Infrastructure.Data.Migrations
                     b.OwnsOne("ECommerce.Core.Entities.Orders.ProductItemOrdered", "ItemOrdered", b1 =>
                         {
                             b1.Property<int>("OrderItemId")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("int");
 
                             b1.Property<string>("PictureUrl")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.Property<int>("ProductItemId")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("int");
 
                             b1.Property<string>("ProductName")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                             b1.HasKey("OrderItemId");
 

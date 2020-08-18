@@ -38,7 +38,7 @@ namespace ECommerce.API.Middleware
 
                 var response = _environment.IsDevelopment()
                     ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
-                    : new ApiException((int)HttpStatusCode.InternalServerError);
+                    : new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString());
 
                 var jsonBody = JsonConvert.SerializeObject(response,
                 new JsonSerializerSettings()

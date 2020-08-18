@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IO;
+using AutoMapper;
 using ECommerce.API.Engine;
 using ECommerce.API.Extensions;
 using ECommerce.API.Middleware;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 
@@ -24,10 +26,37 @@ namespace ECommerce.API
         }
 
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+
+            services.AddDbContext<ECommerceContext>(option => option.UseSqlite(_configuration.GetConnectionString(nameof(ECommerceContext))));
+
+            services.AddDbContext<AppIdentityDbContext>(option =>
+            {
+                option.UseSqlite(_configuration.GetConnectionString(nameof(AppIdentityDbContext)));
+            });
+
+            ConfigureServices(services);
+        }
+
+        public void ConfigureProductionServices(IServiceCollection services)
+        { 
+
+            services.AddDbContext<ECommerceContext>(option => option.UseMySql(_configuration.GetConnectionString(nameof(ECommerceContext))));
+
+            services.AddDbContext<AppIdentityDbContext>(option =>
+            {
+                option.UseMySql(_configuration.GetConnectionString(nameof(AppIdentityDbContext)));
+            });
+
+            ConfigureServices(services);
+        }
+
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson(options => {
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
@@ -38,13 +67,6 @@ namespace ECommerce.API
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.Configure<JwtSettings>(_configuration.GetSection("Jwt"));
-
-            services.AddDbContext<ECommerceContext>(option => option.UseSqlite(_configuration.GetConnectionString(nameof(ECommerceContext))));
-
-            services.AddDbContext<AppIdentityDbContext>(option =>
-            {
-                option.UseSqlite(_configuration.GetConnectionString(nameof(AppIdentityDbContext)));
-            });
 
             #region Extension Services
 
@@ -92,6 +114,14 @@ namespace ECommerce.API
 
             app.UseStaticFiles();
 
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Content")
+                ),
+                RequestPath = "/content"
+            });
+
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
@@ -100,11 +130,11 @@ namespace ECommerce.API
 
             app.UseSwaggerDocumentation();
 
-            //app.UseHttpsRedirection();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

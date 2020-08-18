@@ -13,15 +13,6 @@ namespace ECommerce.Infrastructure.Identity
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            // builder.Entity<AppUser>(build =>{
-            //     build.HasOne(x => x.Adress).WithOne();
-            // });
-
-            // builder.Entity<Adress>(build => {
-            //     build.HasKey(x => x.Id);
-            //     build.HasOne(x => x.AppUser).WithOne(x => x.Adress);
-            // });
         }
     }
 }
