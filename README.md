@@ -1,21 +1,23 @@
-# Structure of Solution
+# E-Commerce System using .Net Core, Angular and Stripe Payment process
+
+## Structure of Solution
 - Core
 - Infrastructure
 - API
 - Dashboard
 
-# Technologies
+## Technologies
 - .Net Core 3.1
 - ASP.NET Core 3.1
 - Entity Framework Core 3.1
 - Angular 9
+- Linux Server
+- MySql Server
 
-# Implementations
-- Entity pattern
-- Repository Pattern
-    - Generic Repository
-    - Unit of Work 
-    - Specification
+## API using Techs and Tools 
+- Context Boundaries
+- Generic Repository Pattern
+- Specification Pattern
 - Entity Framework Core
     - Fluent Mapping
     - Sql Lite
@@ -36,13 +38,20 @@
 - Authentication and Authorization Middleware
     - Identity Implementation
     - JWT - JSON Web Token Implementation
-    
+
+## Angular using Techs and Tools 
 - Angular Dashboard
     - Core Module
     - Shared Module
     - Feature Module
     - Guards
     - Interceptors
+    - Routing
+    - Caching
+    - Error Handling
+    - Async Pipe
+    - Lazy Loading
+    - Observable
 
   Outputs:
   ![Home Page of ECommerce](outputs/Home.png)
